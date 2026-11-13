@@ -1,0 +1,53 @@
+The MS-DOS side of hsdefrag.exe
+===============================
+
+hsdefrag.exe is a dual-mode program. In Windows it runs as a Windows program;
+started in MS-DOS it is an MS-DOS program that defragments FAT12/16/32
+volumes: in MS-DOS mode of Windows 95/98, from a startup disk, and in the
+boot-time pass that "hsdefrag X: --boot-defrag" schedules on Windows 95/98.
+The MS-DOS side is built from src/fatdos.c and the portable engine in src/
+(see the Makefile).
+
+The MS-DOS side is a 32-bit protected-mode program:
+
+  - Built with DJGPP, the GNU C compiler and C library for MS-DOS.
+    The latest DJGPP is available at https://www.delorie.com/djgpp/
+    Its library is used unmodified; COPYING.DJ gives the terms
+    (with COPYING and COPYING.LIB, which it refers to).
+
+  - It runs on CWSDPMI, the free DPMI host by Charles W. Sandmann, which is
+    bound into hsdefrag.exe as its starter stub (cwsdstub.exe here). The
+    source code of CWSDPMI is available at
+      https://www.delorie.com/pub/djgpp/current/v2misc/csdpmi7s.zip
+    and the official binaries at
+      https://www.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
+    COPYING.CWS gives the terms (with COPYING, the GNU GPL version 2).
+
+cwsdstub.exe is bin/CWSDSTUB.EXE from csdpmi7b.zip (release 7) with one of
+its documented parameters changed, as CWSPARAM.EXE from the same package
+does: the paging file is set to "" (none), so CWSDPMI never creates or
+writes c:\cwsdpmi.swp. A swap file growing on the volume that is being
+defragmented would change it underneath the defragmenter. The only
+difference from the official file is the swap-file name in the CWSPBLK
+parameter block (file offsets 21390-21403, 0x538E-0x539B, zero-filled):
+
+  official   15cb50f3cc7022cd1148b4569813b33f4b56c3f31ebdd296c7f97906d2543625
+  this file  765b86aa0fc287589adbeae9fd3b4acf9a15a151ae94d30f50cf1867154a92d4
+  (SHA-256)
+
+Like any DJGPP program, the MS-DOS side is the stub followed by the COFF
+image of the program; on its own it would be
+
+  cat dos/cwsdstub.exe build/dos/hsdefrag > hsdefrag-dos.exe
+
+tools/mkdual.c puts both into hsdefrag.exe, after the PE headers of the
+Windows program (build/hsdefrag-win.exe) and before its first section:
+
+  build/mkdual build/hsdefrag-win.exe dos/cwsdstub.exe build/dos/hsdefrag \
+      hsdefrag.exe
+
+The stub's program and relocation table and the COFF image are copied byte
+for byte. The MS-DOS header at the start of the file takes the stub's values
+(memory, stack, entry point) and gives the stub's size, so the stub finds
+its COFF image right after itself; Windows follows the header's pointer to
+the PE header instead.

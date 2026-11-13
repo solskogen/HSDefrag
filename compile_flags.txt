@@ -1,0 +1,7 @@
+--target=i686-w64-mingw32
+-Isrc
+-std=gnu99
+-D_WIN32_WINNT=0x0400
+-DWINVER=0x0400
+-Wall
+-Wextra

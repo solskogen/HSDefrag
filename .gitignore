@@ -1,0 +1,10 @@
+# Build artefacts
+build/
+dist/
+*.o
+*.exe
+*.log
+
+# The CWSDPMI stub is part of the source tree: the MS-DOS image needs it.
+!dos/cwsdstub.exe
+

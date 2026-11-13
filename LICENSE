@@ -1,0 +1,39 @@
+MIT License
+
+Copyright (c) 2026 Christer Solskogen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-------------------------------------------------------------------------------
+
+Third-party components in hsdefrag.exe
+
+hsdefrag.exe also contains components that are NOT covered by the licence
+above; each keeps its own terms, which must be shipped with hsdefrag.exe
+(make dist does this):
+
+- CWSDPMI starter stub (dos/cwsdstub.exe), Copyright (C) Charles W Sandmann:
+  GNU GPL version 2 with the exception in dos/COPYING.CWS that allows the
+  stub in DJGPP programs. See dos/COPYING.CWS, dos/COPYING and dos/README
+  (where to obtain its source code).
+- DJGPP runtime (crt0.o, libc.a), Copyright (C) DJ Delorie and others:
+  see dos/COPYING.DJ and dos/COPYING.LIB; dos/README says where to obtain
+  DJGPP.
+- GCC runtime library (libgcc), linked under the GCC Runtime Library
+  Exception.

@@ -1,0 +1,9 @@
+#ifndef HSD_VERSION_H
+#define HSD_VERSION_H
+
+#define HSD_VERSION "1.0"
+#define HSD_VERSION_L(s) L##s
+#define HSD_VERSION_W(s) HSD_VERSION_L(s)
+#define HSD_WVERSION HSD_VERSION_W(HSD_VERSION)
+
+#endif
